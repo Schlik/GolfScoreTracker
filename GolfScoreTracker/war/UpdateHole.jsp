@@ -21,7 +21,7 @@ dao my_dao = dao.INSTANCE;
 
 
 List<Hole> holes = new ArrayList<Hole>();          
-holes = my_dao.listHoles("Ramblewood");
+holes = my_dao.listHoles("Ramblewood Country Club");
 
     
 %>
@@ -31,45 +31,70 @@ holes = my_dao.listHoles("Ramblewood");
 			<div style="float: left;">
 				<img src="images/todo.png" />
 			</div>
-			<div style="float: left;" class="headline">Pubs</div>
+			<div style="float: left;" class="headline">Holes</div>
 			<div style="float: right;"></div>
 		</div>
 	</div>
 
 	<div style="clear: both;"></div>
-	You have a total number of
-	<%= holes.size() %>
-	Todos.
+	You have a total number of	<%=	holes.size() %>	Holes defined.
 
-	<table>
+
+	<table id="scorecard">
+				<% for (Hole hole : holes ) {%>			
 		<tr>
-			<th>Course Color</th>
-			<th>Hole #</th>
-			<th>Blue  Tee Distance</th>
-			<th>White Tee Distance</th>
-			<th>Red   Tee Distance</th>
-			<th>Par   </th>
-			<th>Men's Handicap   </th>
-			<th>Women's Handicap   </th>
+			<td><%=hole.getCourseColor()%></td>
+			<td><%=hole.getHoleNumber()%></td>
+			<td><%=hole.getBlueTeeDistance()%></td>
+			<td><%=hole.getWhiteTeeDistance()%></td>
+			<td><%=hole.getRedTeeDistance()%></td>
+			<td><%=hole.getParValue()%></td>
+			<td><%=hole.getMensHandicap()%></td>
+			<td><%=hole.getWomensHandicap()%></td>
 		</tr>
 
-		<% for (Hole hole : holes ) {%>
-		<tr>
-			<td><%=hole.getmCourseColor()%></td>
-			<td><%=hole.getmHoleNumber()%></td>
-			<td><%=hole.getmBlueTeeDistance()%></td>
-			<td><%=hole.getmWhiteTeeDistance()%></td>
-			<td><%=hole.getmRedTeeDistance()%></td>
-			<td><%=hole.getmParValue()%></td>
-			<td><%=hole.getmMensHandicap()%></td>
-			<td><%=hole.getmWomensHandicap()%></td>
-						
-		</tr>
-				<%}
-%>
+		<%}%>
 	</table>
-	
-		<div class="main">
+<!-- 		<thead> -->
+<!-- 			<tr class="row-1"> -->
+<!-- 				<th class="column-1"><strong>HOLE</strong></th> -->
+<!-- 				<th class="column-2">1</th> -->
+<!-- 				<th class="column-3">2</th> -->
+<!-- 				<th class="column-4">3</th> -->
+<!-- 				<th class="column-5">4</th> -->
+<!-- 				<th class="column-6">5</th> -->
+<!-- 				<th class="column-7">6</th> -->
+<!-- 				<th class="column-8">7</th> -->
+<!-- 				<th class="column-9">8</th> -->
+<!-- 				<th class="column-10">9</th> -->
+<!-- 				<th class="column-11">TOT</th> -->
+<!-- 				<th class="column-12">HCP</th> -->
+<!-- 				<th class="column-13">NET</th> -->
+<!-- 			</tr> -->
+<!-- 		</thead> -->
+<!-- 		<tbody> -->
+
+
+<%-- 		   <tr class="row-" <%=hole.getHoleNumber() + 1 %>> --%>
+<!-- 	<td class="column-1"><strong>Blue</strong></td> -->
+<!-- 	<td class="column-2">76.0/146</td> -->
+<!-- 	<td class="column-3">425</td> -->
+<!-- 	<td class="column-4">380</td> -->
+<!-- 	<td class="column-5">185</td> -->
+<!-- 	<td class="column-6">396</td> -->
+<!-- 	<td class="column-7">581</td> -->
+<!-- 	<td class="column-8">195</td> -->
+<!-- 	<td class="column-9">475</td> -->
+<!-- 	<td class="column-10">543</td> -->
+<!-- 	<td class="column-11">493</td> -->
+<!-- 	<td class="column-12">3673</td> -->
+<!-- </tr> -->
+<!-- </tbody> -->
+<!-- </table> -->
+		
+
+
+	<div class="main">
 
 		<div class="headline">Add Hole</div>
 

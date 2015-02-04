@@ -1,6 +1,8 @@
 package com.schlik.golfscoretracker.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -10,11 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-
-
-
-
-
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PhoneNumber;
 
 
@@ -25,47 +23,57 @@ public class Course {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	@Column(name="course_name")
-	private String mCourseName;
+	private Key courseId;
 	
-	private PhoneNumber mPhoneNumber;
 	
-	@OneToMany(mappedBy="mCourse")
-	private Map<Integer, Hole> mHoles;
+	@Column(name="COURSE_NAME")
+	private String courseName;
 	
-	public Course( String name ) {
-		mCourseName = name;
-		mHoles = new HashMap<Integer, Hole>();
+	@OneToMany(mappedBy="parentCourse")
+	private List<Hole> holes = new ArrayList<>();
+	
+	
+	
+	public Course( ) {
+
 	}
 
-	public String getmCourseName() {
-		return mCourseName;
+
+
+	public Key getCourseId() {
+		return courseId;
 	}
 
-	public void setmCourseName(String mCourseName) {
-		this.mCourseName = mCourseName;
+
+
+	public void setCourseId(Key courseId) {
+		this.courseId = courseId;
 	}
 
-	public PhoneNumber getmPhoneNumber() {
-		return mPhoneNumber;
+
+
+	public String getCourseName() {
+		return courseName;
 	}
 
-	public void setmPhoneNumber(PhoneNumber mPhoneNumber) {
-		this.mPhoneNumber = mPhoneNumber;
+
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
-	public Map<Integer,Hole> getmHoles() {
-		return mHoles;
+
+
+	public List<Hole> getHoles() {
+		return holes;
 	}
 
-	public void setmHoles(Map<Integer,Hole> mHoles) {
-		this.mHoles = mHoles;
+
+
+	public void setHoles(List<Hole> holes) {
+		this.holes = holes;
 	}
 
-	public void setHole(Hole inputHole) {
-		mHoles.put(inputHole.getId(), inputHole );
-	}
 
 
 

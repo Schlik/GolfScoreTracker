@@ -1,10 +1,12 @@
 package com.schlik.golfscoretracker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.google.appengine.api.datastore.KeyFactory;
 import com.schlik.golfscoretracker.Model.Course;
 import com.schlik.golfscoretracker.Model.Hole;
 
@@ -13,43 +15,53 @@ public enum dao {
 	
 	/** A simple endpoint method that takes a name and says Hi back */
 	public List<Hole> listHoles( String inputName) {
+		
+		List<Hole> returnList = new ArrayList<>();
+		
 		EntityManager em = EMFService.get().createEntityManager();
-		Query q = em.createQuery("select m from Course m where m.mCourseName = :courseName");
-		q.setParameter("courseName", "Ramblewood Country Club");
-		List<Hole> holes = q.getResultList();
-		return holes;
+		
+		String course_name = new String( "Ramblewood Country Club" );
+		
+		Long hash_value = new Long(course_name.hashCode());
+		
+		Course ramblewood = em.find( Course.class, hash_value);
+		
+		if( ramblewood != null )
+			returnList =  ramblewood.getHoles();
+		
+		
+		return returnList;
 	}
 
-	public void add( Hole name) {
-		synchronized (this) {
-			EntityManager em = EMFService.get().createEntityManager();
-			Hole newHole = new Hole( );			
-			em.persist(newHole);
-			em.close();
-		}
-	}
+
 
 	public void update(Hole newHole) {
 		EntityManager em = EMFService.get().createEntityManager();
+		
+		
 		em.getTransaction().begin();
 		
-		Course ramblewood = em.find( Course.class, "Ramblewood Country Club");
+		String course_name = new String( "Ramblewood Country Club" );
+		
+		Long hash_value = new Long(course_name.hashCode());
+		
+		Course ramblewood = em.find( Course.class, hash_value);
 		
 		if( ramblewood == null ){
-			ramblewood = new Course("Ramblewood Country Club");
+			ramblewood = new Course();
+			ramblewood.setCourseName("Ramblewood Country Club");
+			ramblewood.setCourseId( KeyFactory.createKey( Course.class.getSimpleName(), course_name ));
 		}
 		
 		
+		ramblewood.getHoles().add( newHole );
 		
-		newHole.setmCourse(ramblewood);
-		ramblewood.setHole( newHole );
+		newHole.setParentCourse( ramblewood );
 		
 		em.persist( ramblewood );
-		em.persist(newHole);
+		em.persist( newHole    );
 		em.getTransaction().commit();
-		em.close();
-			
-		   
+		em.close();  
 		
 	}
 

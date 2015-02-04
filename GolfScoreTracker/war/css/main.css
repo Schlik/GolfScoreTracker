@@ -21,6 +21,38 @@ table th {
 	text-align: left;
 }
 
+
+.row-1 {
+	background: maroon;
+}
+
+.row-2 {
+	background: #000066;
+}
+.row-3 {
+	background: white;
+}
+.row-4 {
+	background: #FFF8E6;
+}
+.row-5 {
+	background: white;
+}
+.row-6 {
+	background: #FFD700;
+}
+.row-7 {
+	background: #FF3333;
+}
+.row-8 {
+	background: #FF8585;
+}
+.row-9 {
+	background: FFCECE
+}
+
+
+
 table tr {
 	background-color: #e5ecf9;
 	font-size: small;
