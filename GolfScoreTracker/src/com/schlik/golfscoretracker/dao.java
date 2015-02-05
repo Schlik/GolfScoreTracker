@@ -13,7 +13,7 @@ import com.schlik.golfscoretracker.Model.Hole;
 public enum dao {
 	INSTANCE;
 	
-	/** A simple endpoint method that takes a name and says Hi back */
+
 	public List<Hole> listHoles( String inputName) {
 		
 		List<Hole> returnList = new ArrayList<>();
@@ -43,20 +43,21 @@ public enum dao {
 		
 		String course_name = new String( "Ramblewood Country Club" );
 		
-		Long hash_value = new Long(course_name.hashCode());
+		//Long hash_value = new Long(course_name.hashCode());
 		
-		Course ramblewood = em.find( Course.class, hash_value);
+		Course ramblewood = em.find( Course.class, KeyFactory.createKey( Course.class.getSimpleName(), course_name ) );
 		
 		if( ramblewood == null ){
 			ramblewood = new Course();
 			ramblewood.setCourseName("Ramblewood Country Club");
 			ramblewood.setCourseId( KeyFactory.createKey( Course.class.getSimpleName(), course_name ));
+		
 		}
 		
-		
-		ramblewood.getHoles().add( newHole );
-		
+					
 		newHole.setParentCourse( ramblewood );
+		
+		ramblewood.addHole( newHole );
 		
 		em.persist( ramblewood );
 		em.persist( newHole    );

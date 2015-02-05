@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import com.google.appengine.api.datastore.Key;
 
 @Entity
-@Table(name="HOLE")
 public class Hole {
 
 	@Id

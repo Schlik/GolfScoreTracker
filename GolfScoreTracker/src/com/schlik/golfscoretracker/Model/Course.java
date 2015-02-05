@@ -76,6 +76,13 @@ public class Course {
 
 
 
+	public void addHole(Hole newHole) {
+		holes.add(newHole);
+		
+	}
+
+
+
 
 
 }
