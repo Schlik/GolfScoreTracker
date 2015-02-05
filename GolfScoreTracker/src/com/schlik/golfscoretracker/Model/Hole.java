@@ -23,6 +23,12 @@ public class Hole {
 	private int holeNumber, blueTeeDistance, whiteTeeDistance, redTeeDistance;
 	private int parValue, mensHandicap, womensHandicap;
 	private int keyHashValue;
+	private String courseColor;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="courseId")
+	private Course parentCourse;
 	
 	public int getKeyHashValue() {
 		return keyHashValue;
@@ -34,11 +40,9 @@ public class Hole {
 		this.keyHashValue = keyHashValue;
 	}
 
-	private String courseColor;
+
 	
-	@ManyToOne
-	@JoinColumn(name="courseId")
-	private Course parentCourse;
+
 	
 
 	
@@ -52,7 +56,7 @@ public class Hole {
 	    parValue = 0;
 	    mensHandicap = 0;
 	    womensHandicap = 0;
-	    courseColor = "Red";
+	    courseColor = "Blank";
 	}
 	
 	

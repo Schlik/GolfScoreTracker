@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,8 +30,24 @@ public class Course {
 	@Column(name="COURSE_NAME")
 	private String courseName;
 	
-	@OneToMany(mappedBy="parentCourse")
+	@OneToMany(mappedBy="parentCourse") //, fetch = FetchType.EAGER)
 	private List<Hole> holes = new ArrayList<>();
+	
+	public Hole getHole(int value){
+		
+		Hole returnValue = null;
+	
+		for( Hole itr : holes ){
+		   if( itr.getHoleNumber() == value ){
+			   returnValue = itr;
+			   break;
+		   }
+		}
+		
+		return returnValue;
+
+	
+	}
 	
 	
 	

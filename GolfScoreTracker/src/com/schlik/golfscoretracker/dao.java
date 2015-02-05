@@ -24,13 +24,26 @@ public enum dao {
 		
 		Long hash_value = new Long(course_name.hashCode());
 		
-		Course ramblewood = em.find( Course.class, hash_value);
+		Course ramblewood = em.find( Course.class, KeyFactory.createKey( Course.class.getSimpleName(), course_name ) );
 		
 		if( ramblewood != null )
 			returnList =  ramblewood.getHoles();
 		
 		
 		return returnList;
+	}
+	
+	public Hole getHole( String courseName, int holeNum) {
+		
+		Hole returnValue = null;
+		EntityManager em = EMFService.get().createEntityManager();
+		Course course = em.find( Course.class, KeyFactory.createKey( Course.class.getSimpleName(), courseName ) );
+		if( course != null ){
+			returnValue = course.getHole( holeNum );
+		}
+		
+		return returnValue;
+		
 	}
 
 
@@ -39,7 +52,7 @@ public enum dao {
 		EntityManager em = EMFService.get().createEntityManager();
 		
 		
-		em.getTransaction().begin();
+		
 		
 		String course_name = new String( "Ramblewood Country Club" );
 		
@@ -54,13 +67,14 @@ public enum dao {
 		
 		}
 		
-					
 		newHole.setParentCourse( ramblewood );
+		ramblewood.addHole(newHole);
 		
-		ramblewood.addHole( newHole );
+		em.getTransaction().begin();
 		
-		em.persist( ramblewood );
 		em.persist( newHole    );
+		em.persist( ramblewood );
+			
 		em.getTransaction().commit();
 		em.close();  
 		

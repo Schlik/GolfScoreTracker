@@ -40,58 +40,207 @@ holes = my_dao.listHoles("Ramblewood Country Club");
 	You have a total number of	<%=	holes.size() %>	Holes defined.
 
 
+<!-- 	<table id="scorecard"> -->
+<%-- 				<% for (Hole hole : holes ) {%>			 --%>
+<!-- 		<tr> -->
+<%-- 			<td><%=hole.getCourseColor()%></td> --%>
+<%-- 			<td><%=hole.getHoleNumber()%></td> --%>
+<%-- 			<td><%=hole.getBlueTeeDistance()%></td> --%>
+<%-- 			<td><%=hole.getWhiteTeeDistance()%></td> --%>
+<%-- 			<td><%=hole.getRedTeeDistance()%></td> --%>
+<%-- 			<td><%=hole.getParValue()%></td> --%>
+<%-- 			<td><%=hole.getMensHandicap()%></td> --%>
+<%-- 			<td><%=hole.getWomensHandicap()%></td> --%>
+<!-- 		</tr> -->
+<!-- 	</table> -->
+
+<%-- 		<%}%> --%>
+
 	<table id="scorecard">
-				<% for (Hole hole : holes ) {%>			
-		<tr>
-			<td><%=hole.getCourseColor()%></td>
-			<td><%=hole.getHoleNumber()%></td>
-			<td><%=hole.getBlueTeeDistance()%></td>
-			<td><%=hole.getWhiteTeeDistance()%></td>
-			<td><%=hole.getRedTeeDistance()%></td>
-			<td><%=hole.getParValue()%></td>
-			<td><%=hole.getMensHandicap()%></td>
-			<td><%=hole.getWomensHandicap()%></td>
-		</tr>
+		<thead>
+			<tr class="row-1">
+				<th class="column-1"><strong>HOLE</strong></th>
+				<th class="column-2">1</th>
+				<th class="column-3">2</th>
+				<th class="column-4">3</th>
+				<th class="column-5">4</th>
+				<th class="column-6">5</th>
+				<th class="column-7">6</th>
+				<th class="column-8">7</th>
+				<th class="column-9">8</th>
+				<th class="column-10">9</th>
+				<th class="column-11">TOT</th>
+				<th class="column-12">HCP</th>
+				<th class="column-13">NET</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%
+				int total = 0;
+				int i = 1;
+			%>
+			<tr class="row-2">
+				<td class="column-1"><strong>Blue</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getBlueTeeDistance();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"><%=total%></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
 
-		<%}%>
+			<tr class="row-3">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>White</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getWhiteTeeDistance();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"><%=total%></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
+			<tr class="row-4">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>Par</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getParValue();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"><%=total%></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>				
+			</tr>
+			<tr class="row-5">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>Men's Hdcp</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getMensHandicap();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+
+				<%
+					}
+				%>
+				<td class="column-11"></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
+			<tr class="row-6">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>Red</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getRedTeeDistance();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"><%=total%></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
+			<tr class="row-7">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>Par</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getParValue();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"><%=total%></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
+			<tr class="row-8">
+				<%
+					total = 0;
+					i = 1;
+				%>
+				<td class="column-1"><strong>Women's Hdcp</strong></td>
+				<%
+					for (; i <= 9; i++) {
+						int currentValue = 0;
+						Hole currentHole = my_dao.getHole("Ramblewood Country Club", i);
+						if (currentHole != null) {
+							currentValue = currentHole.getWomensHandicap();
+						}
+						total += currentValue;
+				%>
+				<td class="column-<%=i + 1%>"><%=currentValue%></td>
+				<%
+					}
+				%>
+				<td class="column-11"></td>
+				<td class="column-12"></td>
+				<td class="column-13"></td>
+			</tr>
+		</tbody>
 	</table>
-<!-- 		<thead> -->
-<!-- 			<tr class="row-1"> -->
-<!-- 				<th class="column-1"><strong>HOLE</strong></th> -->
-<!-- 				<th class="column-2">1</th> -->
-<!-- 				<th class="column-3">2</th> -->
-<!-- 				<th class="column-4">3</th> -->
-<!-- 				<th class="column-5">4</th> -->
-<!-- 				<th class="column-6">5</th> -->
-<!-- 				<th class="column-7">6</th> -->
-<!-- 				<th class="column-8">7</th> -->
-<!-- 				<th class="column-9">8</th> -->
-<!-- 				<th class="column-10">9</th> -->
-<!-- 				<th class="column-11">TOT</th> -->
-<!-- 				<th class="column-12">HCP</th> -->
-<!-- 				<th class="column-13">NET</th> -->
-<!-- 			</tr> -->
-<!-- 		</thead> -->
-<!-- 		<tbody> -->
 
-
-<%-- 		   <tr class="row-" <%=hole.getHoleNumber() + 1 %>> --%>
-<!-- 	<td class="column-1"><strong>Blue</strong></td> -->
-<!-- 	<td class="column-2">76.0/146</td> -->
-<!-- 	<td class="column-3">425</td> -->
-<!-- 	<td class="column-4">380</td> -->
-<!-- 	<td class="column-5">185</td> -->
-<!-- 	<td class="column-6">396</td> -->
-<!-- 	<td class="column-7">581</td> -->
-<!-- 	<td class="column-8">195</td> -->
-<!-- 	<td class="column-9">475</td> -->
-<!-- 	<td class="column-10">543</td> -->
-<!-- 	<td class="column-11">493</td> -->
-<!-- 	<td class="column-12">3673</td> -->
-<!-- </tr> -->
-<!-- </tbody> -->
-<!-- </table> -->
-		
 
 
 	<div class="main">
